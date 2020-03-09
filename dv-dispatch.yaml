@@ -1,7 +1,7 @@
 apiVersion: teiid.io/v1alpha1
 kind: VirtualDatabase
 metadata:
-  name: dv-greeting
+  name: dv-dispatch
 spec:
   replicas: 1
   env:
@@ -12,18 +12,18 @@ spec:
     - name: SPRING_DATASOURCE_SAMPLEDB_DRIVER_CLASS_NAME
       value: org.h2.Driver
     - name: SPRING_DATASOURCE_SAMPLEDB_JDBCURL
-      value: jdbc:h2:mem:sampledb;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1;INIT=create table note(id integer primary key, msg varchar(10));
+      value: jdbc:h2:mem:sampledb;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1;INIT=create table note(id integer primary key, msg varchar(80));
   build:
     source:
       dependencies:
         - com.h2database:h2:1.4.199
       ddl: |
-        CREATE DATABASE greeting OPTIONS (ANNOTATION 'Greeting VDB');
-        USE DATABASE greeting;
+        CREATE DATABASE dispatch OPTIONS (ANNOTATION 'Dispatch VDB');
+        USE DATABASE dispatch;
 
         CREATE SERVER sampledb FOREIGN DATA WRAPPER h2;
 
-        CREATE SCHEMA accounts SERVER sampledb;
+        CREATE SCHEMA dispatch SERVER sampledb;
 
         -- H2 converts the schema name to capital case
-        IMPORT FOREIGN SCHEMA "PUBLIC" FROM SERVER sampledb INTO accounts;
+        IMPORT FOREIGN SCHEMA "PUBLIC" FROM SERVER sampledb INTO dispatch;

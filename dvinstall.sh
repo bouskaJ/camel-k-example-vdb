@@ -58,10 +58,10 @@ check_resource() {
 if $(check_resource crd virtualdatabases.teiid.io) ; then 
   echo "CRD Already exists, skipping.."
 else
-  oc create -f $OP_ROOT/crds/virtualdatabase.crd.yaml 
+  oc create -f $OP_ROOT/crds/teiid.io_virtualdatabases_crd.yaml 
 fi
 
-if $(check_resource ServiceAcccount ${RESOURCE}) ; then 
+if $(check_resource ServiceAccount ${RESOURCE}) ; then 
   echo "Service Account already exists, skipping.."
 else
   echo "creating sa"
