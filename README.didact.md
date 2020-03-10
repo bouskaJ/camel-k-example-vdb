@@ -93,11 +93,15 @@ Apart from the support provided by the VS Code extension, and "kamel" you also n
 ./dvinstall.sh
 ```
 
-When you execute this script, you need to provide your credentials for RedHat customer portal to access the Operator image. Follow the command prompts below
-
 ([^ execute](didact://?commandId=vscode.didact.sendNamedTerminalAString&text=camelTerm$$.%2Fdvinstall.sh%0A&completion=DV%20K%20operator%installation. "Opens a new terminal and sends the command above"){.didact})
 
+When you execute this script, you need to provide your credentials for RedHat customer portal to access the Operator image.
+
 Now lets verify that the teiid-operator is installed correctly
+
+```
+oc get pods --selector name=teiid-operator
+```
 
 ([^ execute](didact://?commandId=vscode.didact.sendNamedTerminalAString&text=camelTerm$$oc%20get%20pods%20--selector%20name%3Dteiid-operator&completion=DV%20K%20verification. "Opens a new terminal and sends the command `oc get pods --selector name=teiid-operator`"){.didact})
 
@@ -108,20 +112,24 @@ If everything is ok, you should see an DV or Teiid Operator pod below in termina
 For the purposes of this example lets deploy a Virtual Database, that is built on top of in memory based H2 database for simplicity. This Virtual database will exposes a single table called `NOTE`, then DV will expose a OData API on it.
 
 ```
-oc create -f dv-greeting.yaml
+oc create -f dv-dispatch.yaml
 ```
 
-([^ execute](didact://?commandId=vscode.didact.sendNamedTerminalAString&text=camelTerm$$oc%create%20-f%20dv-greeting.yaml&completion=DV%20VDB%20deploy%20verification. "Opens a new terminal and sends the command `oc create -f dv-greeting.yaml`"){.didact})
+([^ execute](didact://?commandId=vscode.didact.sendNamedTerminalAString&text=camelTerm$$oc%20create%20-f%20dv-dispatch.yaml&completion=DV%20VDB%20deploy%20verification. "Opens a new terminal and sends the command `oc create -f dv-dispatch.yaml`"){.didact})
 
-This will take sometime to deploy, dpending upon you this first time you are deploying a VDB. Anywhere between 3-4 minutes, once done the Virtual Database `dv-greeting` should be deployed ready to query. Now let's check if the Virtual Database is available
+This will take sometime to deploy, especially if it's the first time a VDB is being deployed. After anywhere between 3-4 minutes the Virtual Database `dv-dispatch` should be deployed, ready for queries. Now let's check if the Virtual Database is available. 
 
-([^ execute](didact://?commandId=vscode.didact.sendNamedTerminalAString&text=camelTerm$$oc%20get%20vdb%20dv-greeting%20-o%20yaml&completion=DV%20K%20verification. "Opens a new terminal and sends the command `oc get vdb dv-greeting -o yaml`"){.didact})
+Make sure the Status is `Running` for the Virtual Database.
 
-Now make sure the Status is `Running` for the Virtual Database.
+```
+oc get vdb dv-dispatch -o yaml
+```
+
+([^ execute](didact://?commandId=vscode.didact.sendNamedTerminalAString&text=camelTerm$$oc%20get%20vdb%20dv-dispatch%20-o%20yaml&completion=DV%20K%20verification. "Opens a new terminal and sends the command `oc get vdb dv-dispatch -o yaml`"){.didact})
 
 ## 2. Running a VDB integration
 
-This repository contains a simple Camel K integration that periodically reads and writes from the Virtual Database that is deployed above
+This repository contains a simple Camel K integration that periodically reads and writes from the Virtual Database that is deployed above.
 
 The integration is all contained in a single file named `Vdb.java` ([open](didact://?commandId=vscode.openFolder&projectFilePath=Vdb.java&completion=Opened%20the%20Vdb.java%20file "Opens the Vdb.java file"){.didact}).
 
@@ -139,7 +147,7 @@ kamel run Vdb.java --dev
 
 ([^ execute](didact://?commandId=vscode.didact.sendNamedTerminalAString&text=camelTerm$$kamel%20run%20Vdb.java%20--dev&completion=Camel%20K%20vdb%20integration%20run%20in%20dev%20mode. "Opens a new terminal and sends the command above"){.didact})
 
-If everything is ok, after the build phase finishes, you should see the Camel integration running and continuously printing "Hello World!..." in the terminal window.
+If everything is ok, after the build phase finishes, you should see the Camel integration running and periodically printing dispatch messages in the terminal window.
 
 When running in dev mode, you can change the integration code and let Camel K redeploy the changes automatically.
 
