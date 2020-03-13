@@ -6,7 +6,7 @@ This example demonstrates how to get started with Camel K and Data Virtualizatio
 
 ## Before you begin
 
-Make sure you check-out this repository from git and open it with [VSCode](https://code.visualstudio.com/).
+Make sure you check-out [this repository](https://github.com/openshift-integration/camel-k-example-vdb) from git and open it with [VSCode](https://code.visualstudio.com/).
 
 Instructions are based on [VSCode Didact](https://github.com/redhat-developer/vscode-didact), so make sure it's installed
 from the VSCode extensions marketplace.
@@ -55,6 +55,14 @@ access all Camel K features.
 
 _Status: unknown_{#kamel-requirements-status}
 
+**Data Virtualization Operator**
+
+To run this example we need Data Virtualization Operator to deploy a Virtual Database
+
+[Check Data Virtualization is installed](didact://?commandId=vscode.didact.requirementCheck&text=dv-requirements-status$$oc%20get%20pods%20--selector%20name%3Dteiid-operator$$teiid-operator-&completion=Data%20Virtualization%20is%20available%20on%20this%20system. "Tests to see if `oc get pods --selector name=teiid-operator` returns a result"){.didact}
+
+_Status: unknown_{#dv-requirements-status}
+
 ## 1. Preparing a new OpenShift project
 
 We'll setup a new project called `camel-vdb` where we'll run the integrations.
@@ -87,15 +95,25 @@ If everything is ok, you should see an IntegrationPlatform named `camel-k` with 
 
 **DV (Teiid) Operator**
 
-Apart from the support provided by the VS Code extension, and "kamel" you also need DV (Teiid) Operator in order to deploy a Virtual Database. We will use script to install it.
+Apart from the support provided by the VS Code extension, and "kamel" you also need Data Virtualization (Teiid) Operator in order to deploy a Virtual Database. This operator needs to be installed from the OperatorHub.
+
+Before you can install the Operator, in order access the restricted Red Hat image repository, one needs to provide their credentials for [Red hat Portal]https://access.redhat.com by executing the following
 
 ```
-./dvinstall.sh
+oc create secret docker-registry dv-pull-secret \
+  --docker-server=registry.redhat.io \
+  --docker-username={CUSTOMER_PORTAL_USERNAME} \
+  --docker-password={CUSTOMER_PORTAL_PASSWORD}
+
+oc secrets link builder dv-pull-secret
+oc secrets link builder dv-pull-secret --for=pull
 ```
 
-([^ execute](didact://?commandId=vscode.didact.sendNamedTerminalAString&text=camelTerm$$.%2Fdvinstall.sh%0A&completion=DV%20K%20operator%installation. "Opens a new terminal and sends the command above"){.didact})
+Replace {CUSTOMER_PORTAL_USERNAME} and {CUSTOMER_PORTAL_PASSWORD} with your own values and execute the commands. Make sure you provide the correct values, other wise next step of installation will fail.
 
-When you execute this script, you need to provide your credentials for RedHat customer portal to access the Operator image.
+([^ execute](didact://?commandId=vscode.didact.sendNamedTerminalAString&text=camelTerm$$echo%20%22%5Cn%5Cn%22%20%26%26echo%20%22Enter%20username%20for%20%27registry.redhat.io%27%20and%20press%20%5BENTER%5D%3A%20%22%20%26%26%20read%20username%20%26%26%20echo%20%22enter%20password%20for%20%27registry.redhat.io%27%20and%20press%20%5BENTER%5D%3A%20%22%20%26%26%20read%20-s%20password%20%26%26%20oc%20create%20secret%20docker-registry%20dv-pull-secret%20--docker-server%3Dregistry.redhat.io%20--docker-username%3D%24username%20--docker-password%3D%24password%20%26%26%20oc%20secrets%20link%20builder%20dv-pull-secret%20%26%26%20oc%20secrets%20link%20builder%20dv-pull-secret%20--for%3Dpull&completion=DV%20secret%20verification. "Opens a new terminal and sends the command above"){.didact})
+
+Now, go to your OpenShift 4.x WebConsole page, and find the OperatorHub menu item on left hand side menu and find and install "Data Virtualization Operator". This may take couple minutes to install.
 
 Now lets verify that the teiid-operator is installed correctly
 
@@ -105,7 +123,11 @@ oc get pods --selector name=teiid-operator
 
 ([^ execute](didact://?commandId=vscode.didact.sendNamedTerminalAString&text=camelTerm$$oc%20get%20pods%20--selector%20name%3Dteiid-operator&completion=DV%20K%20verification. "Opens a new terminal and sends the command `oc get pods --selector name=teiid-operator`"){.didact})
 
-If everything is ok, you should see an DV or Teiid Operator pod below in terminal.
+If everything is ok, you should see an Data Virtualization Operator pod below in terminal.
+
+[Check Data Virtualization is installed](didact://?commandId=vscode.didact.requirementCheck&text=dv-requirements-status$$oc%20get%20pods%20--selector%20name%3Dteiid-operator$$teiid-operator-&completion=Data%20Virtualization%20is%20available%20on%20this%20system. "Tests to see if `oc get pods --selector name=teiid-operator` returns a result"){.didact}
+
+_Status: unknown_{#dv-requirements-status}
 
 ## 2. Deploy a Virtual Database
 
@@ -117,7 +139,7 @@ oc create -f dv-dispatch.yaml
 
 ([^ execute](didact://?commandId=vscode.didact.sendNamedTerminalAString&text=camelTerm$$oc%20create%20-f%20dv-dispatch.yaml&completion=DV%20VDB%20deploy%20verification. "Opens a new terminal and sends the command `oc create -f dv-dispatch.yaml`"){.didact})
 
-This will take sometime to deploy, especially if it's the first time a VDB is being deployed. After anywhere between 3-4 minutes the Virtual Database `dv-dispatch` should be deployed, ready for queries. Now let's check if the Virtual Database is available. 
+This will take sometime to deploy, especially if it's the first time a VDB is being deployed. After anywhere between 3-4 minutes the Virtual Database `dv-dispatch` should be deployed, ready for queries. Now let's check if the Virtual Database is available.
 
 Make sure the Status is `Running` for the Virtual Database.
 
