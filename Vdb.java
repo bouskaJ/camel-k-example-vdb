@@ -7,7 +7,7 @@ public class Vdb extends RouteBuilder {
 
   @Override
   public void configure() throws Exception {
-      from("timer:java?period=10s&fixedRate=true")
+      from("timer:java?period=10000&fixedRate=true")
         .to("olingo4://read/NOTE?serviceUri=http%3A%2F%2Fdv-dispatch%3A8080%2Fodata")
         .split()
           .simple("${body.entities}")
@@ -15,7 +15,7 @@ public class Vdb extends RouteBuilder {
             .simple("${body.properties}")
           .to("log:info");
 
-      from("timer:java?period=5s&fixedRate=true")
+      from("timer:java?period=5000&fixedRate=true")
         .setHeader("agent", simple("${random(1,10)}"))
         .setHeader("time", simple("${date:now+1h:HHss}"))
         .setHeader("CamelOlingo4.keyPredicate").simple("00${in.header.agent}")
