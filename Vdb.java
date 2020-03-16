@@ -15,7 +15,7 @@ public class Vdb extends RouteBuilder {
             .simple("${body.properties}")
           .to("log:info");
 
-      from("timer:java?period=5s&fixedRate=true")
+      from("timer:java?period=5000&fixedRate=true")
         .setHeader("agent", simple("${random(1,10)}"))
         .setHeader("time", simple("${date:now+1h:HHss}"))
         .setHeader("CamelOlingo4.keyPredicate").simple("00${in.header.agent}")
