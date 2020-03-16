@@ -7,7 +7,7 @@ public class Vdb extends RouteBuilder {
 
   @Override
   public void configure() throws Exception {
-      from("timer:java?period=10s&fixedRate=true")
+      from("timer:java?period=10000&fixedRate=true")
         .to("olingo4://read/NOTE?serviceUri=http%3A%2F%2Fdv-dispatch%3A8080%2Fodata")
         .split()
           .simple("${body.entities}")
