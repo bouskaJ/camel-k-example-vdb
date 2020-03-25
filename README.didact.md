@@ -34,7 +34,7 @@ _Status: unknown_{#extension-requirement-status}
 
 The OpenShift CLI tool ("oc") will be used to interact with the OpenShift cluster.
 
-[Check if the OpenShift CLI ("oc") is installed](didact://?commandId=vscode.didact.requirementCheck&text=oc-requirements-status$$oc%20version$$oc&completion=OpenShift%20%20CLI%20is%20available%20on%20this%20system. "Tests to see if `oc version` returns a result"){.didact}
+[Check if the OpenShift CLI ("oc") is installed](didact://?commandId=vscode.didact.cliCommandSuccessful&text=oc-requirements-status$$oc%20help "Tests to see if `oc help` returns a 0 return code"){.didact}
 
 _Status: unknown_{#oc-requirements-status}
 
@@ -125,9 +125,9 @@ oc get pods --selector name=teiid-operator
 
 If everything is ok, you should see an Data Virtualization Operator pod below in terminal.
 
-[Check Data Virtualization is installed](didact://?commandId=vscode.didact.requirementCheck&text=dv-requirements-status$$oc%20get%20pods%20--selector%20name%3Dteiid-operator$$teiid-operator-&completion=Data%20Virtualization%20is%20available%20on%20this%20system. "Tests to see if `oc get pods --selector name=teiid-operator` returns a result"){.didact}
+[Check Data Virtualization is installed](didact://?commandId=vscode.didact.requirementCheck&text=dv-requirements-status-2$$oc%20get%20pods%20--selector%20name%3Dteiid-operator$$teiid-operator-&completion=Data%20Virtualization%20is%20available%20on%20this%20system. "Tests to see if `oc get pods --selector name=teiid-operator` returns a result"){.didact}
 
-_Status: unknown_{#dv-requirements-status}
+_Status: unknown_{#dv-requirements-status-2}
 
 ## 2. Deploy a Virtual Database
 
@@ -173,7 +173,8 @@ If everything is ok, after the build phase finishes, you should see the Camel in
 
 When running in dev mode, you can change the integration code and let Camel K redeploy the changes automatically.
 
-**To exit dev mode and terminate the execution**, click on the terminal window and press `ctrl+c`.
+[**To exit dev mode and terminate the execution**, just click here](didact://?commandId=vscode.didact.sendNamedTerminalCtrlC&text=camelTerm&completion=Camel%20K%20basic%20integration%20interrupted. "Interrupt the current operation on the terminal"){.didact} 
+or hit `ctrl+c` on the terminal window.
 
 > **Note:** When you terminate a "dev mode" execution, also the remote integration will be deleted. This gives the experience of a local program execution, but the integration is actually running in the remote cluster.
 
