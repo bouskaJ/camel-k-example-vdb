@@ -57,7 +57,7 @@ _Status: unknown_{#kamel-requirements-status}
 
 **Data Virtualization Operator**
 
-To run this example we need Data Virtualization Operator to deploy a Virtual Database
+To run this example we need Data Virtualization Operator to deploy a Virtual Database (installation described below).
 
 [Check Data Virtualization is installed](didact://?commandId=vscode.didact.requirementCheck&text=dv-requirements-status$$oc%20get%20pods%20--selector%20name%3Ddv-operator$$dv-operator-&completion=Data%20Virtualization%20is%20available%20on%20this%20system. "Tests to see if `oc get pods --selector name=dv-operator` returns a result"){.didact}
 
