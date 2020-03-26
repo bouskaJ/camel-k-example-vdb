@@ -26,7 +26,7 @@ such as code completion and integrated lifecycle management.
 
 You can install it from the VS Code Extensions marketplace.
 
-[Check if the VS Code Extension Pack for Apache Camel by Red Hat is installed](didact://?commandId=vscode.didact.extensionRequirementCheck&text=extension-requirement-status$$redhat.apache-camel-extension-pack&completion=Camel%20extension%20pack%20is%20available%20on%20this%20system. "Checks the VS Code workspace to make sure the extension pack is installed"){.didact}
+[Check if the VS Code Extension Pack for Apache Camel by Red Hat is installed](didact://?commandId=vscode.didact.extensionRequirementCheck&text=extension-requirement-status$$redhat.apache-camel-extension-pack&completion=Checking%20Camel%20extension%20pack%20is%20available%20on%20this%20system. "Checks the VS Code workspace to make sure the extension pack is installed"){.didact}
 
 _Status: unknown_{#extension-requirement-status}
 
@@ -34,7 +34,7 @@ _Status: unknown_{#extension-requirement-status}
 
 The OpenShift CLI tool ("oc") will be used to interact with the OpenShift cluster.
 
-[Check if the OpenShift CLI ("oc") is installed](didact://?commandId=vscode.didact.cliCommandSuccessful&text=oc-requirements-status$$oc%20help "Tests to see if `oc help` returns a 0 return code"){.didact}
+[Check if the OpenShift CLI ("oc") is installed](didact://?commandId=vscode.didact.cliCommandSuccessful&text=oc-requirements-status$$oc%20help&completion=Checking%20Openshift%20CLI%20tool%20is%20installed. "Tests to see if `oc help` returns a 0 return code"){.didact}
 
 _Status: unknown_{#oc-requirements-status}
 
@@ -42,7 +42,7 @@ _Status: unknown_{#oc-requirements-status}
 
 You need to connect to an OpenShift cluster in order to run the examples.
 
-[Check if you're connected to an OpenShift cluster](didact://?commandId=vscode.didact.requirementCheck&text=cluster-requirements-status$$oc%20get%20project$$NAME&completion=OpenShift%20is%20connected. "Tests to see if `kamel version` returns a result"){.didact}
+[Check if you're connected to an OpenShift cluster](didact://?commandId=vscode.didact.requirementCheck&text=cluster-requirements-status$$oc%20get%20project$$NAME&completion=Checking%20OpenShift%20is%20connected. "Tests to see if `kamel version` returns a result"){.didact}
 
 _Status: unknown_{#cluster-requirements-status}
 
@@ -51,7 +51,7 @@ _Status: unknown_{#cluster-requirements-status}
 Apart from the support provided by the VS Code extension, you also need the Apache Camel K CLI ("kamel") in order to
 access all Camel K features.
 
-[Check if the Apache Camel K CLI ("kamel") is installed](didact://?commandId=vscode.didact.requirementCheck&text=kamel-requirements-status$$kamel%20version$$Camel%20K%20Client&completion=Apache%20Camel%20K%20CLI%20is%20available%20on%20this%20system. "Tests to see if `kamel version` returns a result"){.didact}
+[Check if the Apache Camel K CLI ("kamel") is installed](didact://?commandId=vscode.didact.requirementCheck&text=kamel-requirements-status$$kamel%20version$$Camel%20K%20Client&completion=Checking%20Apache%20Camel%20K%20CLI%20is%20available%20on%20this%20system. "Tests to see if `kamel version` returns a result"){.didact}
 
 _Status: unknown_{#kamel-requirements-status}
 
@@ -59,7 +59,7 @@ _Status: unknown_{#kamel-requirements-status}
 
 To run this example we need Data Virtualization Operator to deploy a Virtual Database (installation described below).
 
-[Check Data Virtualization is installed](didact://?commandId=vscode.didact.requirementCheck&text=dv-requirements-status$$oc%20get%20pods%20--selector%20name%3Ddv-operator$$dv-operator-&completion=Data%20Virtualization%20is%20available%20on%20this%20system. "Tests to see if `oc get pods --selector name=dv-operator` returns a result"){.didact}
+[Check Data Virtualization is installed](didact://?commandId=vscode.didact.requirementCheck&text=dv-requirements-status$$oc%20get%20pods%20--selector%20name%3Ddv-operator$$dv-operator-&completion=Checking%20Data%20Virtualization%20is%20available%20on%20this%20system. "Tests to see if `oc get pods --selector name=dv-operator` returns a result"){.didact}
 
 _Status: unknown_{#dv-requirements-status}
 
