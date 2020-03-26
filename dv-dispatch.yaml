@@ -20,6 +20,7 @@ spec:
       ddl: |
         CREATE DATABASE dispatch OPTIONS (ANNOTATION 'Dispatch VDB');
         USE DATABASE dispatch;
+        CREATE FOREIGN DATA WRAPPER h2;
 
         CREATE SERVER sampledb FOREIGN DATA WRAPPER h2;
 
