@@ -59,7 +59,7 @@ _Status: unknown_{#kamel-requirements-status}
 
 To run this example we need Data Virtualization Operator to deploy a Virtual Database
 
-[Check Data Virtualization is installed](didact://?commandId=vscode.didact.requirementCheck&text=dv-requirements-status$$oc%20get%20pods%20--selector%20name%3Dteiid-operator$$teiid-operator-&completion=Data%20Virtualization%20is%20available%20on%20this%20system. "Tests to see if `oc get pods --selector name=teiid-operator` returns a result"){.didact}
+[Check Data Virtualization is installed](didact://?commandId=vscode.didact.requirementCheck&text=dv-requirements-status$$oc%20get%20pods%20--selector%20name%3Ddv-operator$$dv-operator-&completion=Data%20Virtualization%20is%20available%20on%20this%20system. "Tests to see if `oc get pods --selector name=dv-operator` returns a result"){.didact}
 
 _Status: unknown_{#dv-requirements-status}
 
@@ -115,17 +115,17 @@ Replace {CUSTOMER_PORTAL_USERNAME} and {CUSTOMER_PORTAL_PASSWORD} with your own 
 
 Now, go to your OpenShift 4.x WebConsole page, and find the OperatorHub menu item on left hand side menu and find and install "Data Virtualization Operator". This may take couple minutes to install.
 
-Now lets verify that the teiid-operator is installed correctly
+Now lets verify that the dv-operator is installed correctly
 
 ```
-oc get pods --selector name=teiid-operator
+oc get pods --selector name=dv-operator
 ```
 
-([^ execute](didact://?commandId=vscode.didact.sendNamedTerminalAString&text=camelTerm$$oc%20get%20pods%20--selector%20name%3Dteiid-operator&completion=DV%20K%20verification. "Opens a new terminal and sends the command `oc get pods --selector name=teiid-operator`"){.didact})
+([^ execute](didact://?commandId=vscode.didact.sendNamedTerminalAString&text=camelTerm$$oc%20get%20pods%20--selector%20name%3Ddv-operator&completion=DV%20K%20verification. "Opens a new terminal and sends the command `oc get pods --selector name=dv-operator`"){.didact})
 
 If everything is ok, you should see an Data Virtualization Operator pod below in terminal.
 
-[Check Data Virtualization is installed](didact://?commandId=vscode.didact.requirementCheck&text=dv-requirements-status-2$$oc%20get%20pods%20--selector%20name%3Dteiid-operator$$teiid-operator-&completion=Data%20Virtualization%20is%20available%20on%20this%20system. "Tests to see if `oc get pods --selector name=teiid-operator` returns a result"){.didact}
+[Check Data Virtualization is installed](didact://?commandId=vscode.didact.requirementCheck&text=dv-requirements-status-2$$oc%20get%20pods%20--selector%20name%3Ddv-operator$$dv-operator-&completion=Data%20Virtualization%20is%20available%20on%20this%20system. "Tests to see if `oc get pods --selector name=dv-operator` returns a result"){.didact}
 
 _Status: unknown_{#dv-requirements-status-2}
 
