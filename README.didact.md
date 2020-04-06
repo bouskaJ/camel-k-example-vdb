@@ -97,23 +97,7 @@ If everything is ok, you should see an IntegrationPlatform named `camel-k` with 
 
 Apart from the support provided by the VS Code extension, and "kamel" you also need Data Virtualization (Teiid) Operator in order to deploy a Virtual Database. This operator needs to be installed from the OperatorHub.
 
-Before you can install the Operator, in order access the restricted Red Hat image repository, one needs to provide their credentials for [Red hat Portal]https://access.redhat.com by executing the following
-
-```
-oc create secret docker-registry dv-pull-secret \
-  --docker-server=registry.redhat.io \
-  --docker-username={CUSTOMER_PORTAL_USERNAME} \
-  --docker-password={CUSTOMER_PORTAL_PASSWORD}
-
-oc secrets link builder dv-pull-secret
-oc secrets link builder dv-pull-secret --for=pull
-```
-
-Replace {CUSTOMER_PORTAL_USERNAME} and {CUSTOMER_PORTAL_PASSWORD} with your own values and execute the commands. Make sure you provide the correct values, other wise next step of installation will fail.
-
-([^ execute](didact://?commandId=vscode.didact.sendNamedTerminalAString&text=camelTerm$$echo%20%22%5Cn%5Cn%22%20%26%26echo%20%22Enter%20username%20for%20%27registry.redhat.io%27%20and%20press%20%5BENTER%5D%3A%20%22%20%26%26%20read%20username%20%26%26%20echo%20%22enter%20password%20for%20%27registry.redhat.io%27%20and%20press%20%5BENTER%5D%3A%20%22%20%26%26%20read%20-s%20password%20%26%26%20oc%20create%20secret%20docker-registry%20dv-pull-secret%20--docker-server%3Dregistry.redhat.io%20--docker-username%3D%24username%20--docker-password%3D%24password%20%26%26%20oc%20secrets%20link%20builder%20dv-pull-secret%20%26%26%20oc%20secrets%20link%20builder%20dv-pull-secret%20--for%3Dpull&completion=DV%20secret%20verification. "Opens a new terminal and sends the command above"){.didact})
-
-Now, go to your OpenShift 4.x WebConsole page, and find the OperatorHub menu item on left hand side menu and find and install "Data Virtualization Operator". This may take couple minutes to install.
+Now, go to your OpenShift 4.x WebConsole page, and find the OperatorHub menu item on left hand side menu and find "Data Virtualization Operator". Follow instructions (eg. setting correct secret) in operator description which are needed before clicking "Install" button. This may take couple minutes to install.
 
 Now lets verify that the dv-operator is installed correctly
 
