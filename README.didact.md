@@ -133,7 +133,7 @@ oc get vdb dv-dispatch -o yaml
 
 ([^ execute](didact://?commandId=vscode.didact.sendNamedTerminalAString&text=camelTerm$$oc%20get%20vdb%20dv-dispatch%20-o%20yaml&completion=DV%20K%20verification. "Opens a new terminal and sends the command `oc get vdb dv-dispatch -o yaml`"){.didact})
 
-## 2. Running a VDB integration
+## 3. Running a VDB integration
 
 This repository contains a simple Camel K integration that periodically reads and writes from the Virtual Database that is deployed above.
 
