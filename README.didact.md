@@ -44,15 +44,6 @@ access all Camel K features.
 
 _Status: unknown_{#kamel-requirements-status}
 
-**Data Virtualization Operator**
-
-To run this example we need Data Virtualization Operator to deploy a Virtual Database (installation described below).
-
-[Check Data Virtualization is installed](didact://?commandId=vscode.didact.requirementCheck&text=dv-requirements-status$$oc%20get%20pods%20--selector%20name%3Ddv-operator$$dv-operator-&completion=Checking%20Data%20Virtualization%20is%20available%20on%20this%20system. "Tests to see if `oc get pods --selector name=dv-operator` returns a result"){.didact}
-
-_Status: unknown_{#dv-requirements-status}
-
-
 ### Optional Requirements
 
 The following requirements are optional. They don't prevent the execution of the demo, but may make it easier to follow.
@@ -102,7 +93,7 @@ If everything is ok, you should see an IntegrationPlatform named `camel-k` with 
 
 **DV (Teiid) Operator**
 
-Apart from the support provided by the VS Code extension, and "kamel" you also need Data Virtualization (Teiid) Operator in order to deploy a Virtual Database. This operator needs to be installed from the OperatorHub.
+In order to deploy a Virtual Database you also need Data Virtualization (Teiid) Operator. This operator needs to be installed from the OperatorHub.
 
 Now, go to your OpenShift 4.x WebConsole page, and find the OperatorHub menu item on left hand side menu and find "Data Virtualization Operator". Follow instructions (eg. setting correct secret) in operator description which are needed before clicking "Install" button. This may take couple minutes to install.
 
@@ -116,9 +107,9 @@ oc get pods --selector name=dv-operator
 
 If everything is ok, you should see an Data Virtualization Operator pod below in terminal.
 
-[Check Data Virtualization is installed](didact://?commandId=vscode.didact.requirementCheck&text=dv-requirements-status-2$$oc%20get%20pods%20--selector%20name%3Ddv-operator$$dv-operator-&completion=Checking%20Data%20Virtualization%20is%20available%20on%20this%20system. "Tests to see if `oc get pods --selector name=dv-operator` returns a result"){.didact}
+[Check Data Virtualization is installed](didact://?commandId=vscode.didact.requirementCheck&text=dv-requirements-status$$oc%20get%20pods%20--selector%20name%3Ddv-operator$$dv-operator-&completion=Checking%20Data%20Virtualization%20is%20available%20on%20this%20system. "Tests to see if `oc get pods --selector name=dv-operator` returns a result"){.didact}
 
-_Status: unknown_{#dv-requirements-status-2}
+_Status: unknown_{#dv-requirements-status}
 
 ## 2. Deploy a Virtual Database
 
