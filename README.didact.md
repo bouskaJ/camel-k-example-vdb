@@ -15,20 +15,9 @@ From the VSCode UI, click on the `README.didact.md` file and select "Didact: Sta
 
 [Make sure you've checked all the requirements](./requirements.didact.md) before jumping into the tutorial section.
 
-## Checking requirements
+## Requirements
 
 <a href='didact://?commandId=vscode.didact.validateAllRequirements' title='Validate all requirements!'><button>Validate all Requirements at Once!</button></a>
-
-**VS Code Extension Pack for Apache Camel**
-
-The VS Code Extension Pack for Apache Camel by Red Hat provides a collection of useful tools for Apache Camel K developers,
-such as code completion and integrated lifecycle management.
-
-You can install it from the VS Code Extensions marketplace.
-
-[Check if the VS Code Extension Pack for Apache Camel by Red Hat is installed](didact://?commandId=vscode.didact.extensionRequirementCheck&text=extension-requirement-status$$redhat.apache-camel-extension-pack&completion=Checking%20Camel%20extension%20pack%20is%20available%20on%20this%20system. "Checks the VS Code workspace to make sure the extension pack is installed"){.didact}
-
-_Status: unknown_{#extension-requirement-status}
 
 **OpenShift CLI ("oc")**
 
@@ -62,6 +51,24 @@ To run this example we need Data Virtualization Operator to deploy a Virtual Dat
 [Check Data Virtualization is installed](didact://?commandId=vscode.didact.requirementCheck&text=dv-requirements-status$$oc%20get%20pods%20--selector%20name%3Ddv-operator$$dv-operator-&completion=Checking%20Data%20Virtualization%20is%20available%20on%20this%20system. "Tests to see if `oc get pods --selector name=dv-operator` returns a result"){.didact}
 
 _Status: unknown_{#dv-requirements-status}
+
+
+### Optional Requirements
+
+The following requirements are optional. They don't prevent the execution of the demo, but may make it easier to follow.
+
+**VS Code Extension Pack for Apache Camel**
+
+The VS Code Extension Pack for Apache Camel by Red Hat provides a collection of useful tools for Apache Camel K developers,
+such as code completion and integrated lifecycle management. They are **recommended** for the tutorial, but they are **not**
+required.
+
+You can install it from the VS Code Extensions marketplace.
+
+[Check if the VS Code Extension Pack for Apache Camel by Red Hat is installed](didact://?commandId=vscode.didact.extensionRequirementCheck&text=extension-requirement-status$$redhat.apache-camel-extension-pack&completion=Camel%20extension%20pack%20is%20available%20on%20this%20system. "Checks the VS Code workspace to make sure the extension pack is installed"){.didact}
+
+*Status: unknown*{#extension-requirement-status}
+
 
 ## 1. Preparing a new OpenShift project
 
