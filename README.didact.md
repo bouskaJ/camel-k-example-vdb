@@ -15,20 +15,9 @@ From the VSCode UI, click on the `README.didact.md` file and select "Didact: Sta
 
 [Make sure you've checked all the requirements](./requirements.didact.md) before jumping into the tutorial section.
 
-## Checking requirements
+## Requirements
 
 <a href='didact://?commandId=vscode.didact.validateAllRequirements' title='Validate all requirements!'><button>Validate all Requirements at Once!</button></a>
-
-**VS Code Extension Pack for Apache Camel**
-
-The VS Code Extension Pack for Apache Camel by Red Hat provides a collection of useful tools for Apache Camel K developers,
-such as code completion and integrated lifecycle management.
-
-You can install it from the VS Code Extensions marketplace.
-
-[Check if the VS Code Extension Pack for Apache Camel by Red Hat is installed](didact://?commandId=vscode.didact.extensionRequirementCheck&text=extension-requirement-status$$redhat.apache-camel-extension-pack&completion=Checking%20Camel%20extension%20pack%20is%20available%20on%20this%20system. "Checks the VS Code workspace to make sure the extension pack is installed"){.didact}
-
-_Status: unknown_{#extension-requirement-status}
 
 **OpenShift CLI ("oc")**
 
@@ -55,13 +44,22 @@ access all Camel K features.
 
 _Status: unknown_{#kamel-requirements-status}
 
-**Data Virtualization Operator**
+### Optional Requirements
 
-To run this example we need Data Virtualization Operator to deploy a Virtual Database (installation described below).
+The following requirements are optional. They don't prevent the execution of the demo, but may make it easier to follow.
 
-[Check Data Virtualization is installed](didact://?commandId=vscode.didact.requirementCheck&text=dv-requirements-status$$oc%20get%20pods%20--selector%20name%3Ddv-operator$$dv-operator-&completion=Checking%20Data%20Virtualization%20is%20available%20on%20this%20system. "Tests to see if `oc get pods --selector name=dv-operator` returns a result"){.didact}
+**VS Code Extension Pack for Apache Camel**
 
-_Status: unknown_{#dv-requirements-status}
+The VS Code Extension Pack for Apache Camel by Red Hat provides a collection of useful tools for Apache Camel K developers,
+such as code completion and integrated lifecycle management. They are **recommended** for the tutorial, but they are **not**
+required.
+
+You can install it from the VS Code Extensions marketplace.
+
+[Check if the VS Code Extension Pack for Apache Camel by Red Hat is installed](didact://?commandId=vscode.didact.extensionRequirementCheck&text=extension-requirement-status$$redhat.apache-camel-extension-pack&completion=Camel%20extension%20pack%20is%20available%20on%20this%20system. "Checks the VS Code workspace to make sure the extension pack is installed"){.didact}
+
+*Status: unknown*{#extension-requirement-status}
+
 
 ## 1. Preparing a new OpenShift project
 
@@ -95,25 +93,9 @@ If everything is ok, you should see an IntegrationPlatform named `camel-k` with 
 
 **DV (Teiid) Operator**
 
-Apart from the support provided by the VS Code extension, and "kamel" you also need Data Virtualization (Teiid) Operator in order to deploy a Virtual Database. This operator needs to be installed from the OperatorHub.
+In order to deploy a Virtual Database you also need Data Virtualization (Teiid) Operator. This operator needs to be installed from the OperatorHub.
 
-Before you can install the Operator, in order access the restricted Red Hat image repository, one needs to provide their credentials for [Red hat Portal]https://access.redhat.com by executing the following
-
-```
-oc create secret docker-registry dv-pull-secret \
-  --docker-server=registry.redhat.io \
-  --docker-username={CUSTOMER_PORTAL_USERNAME} \
-  --docker-password={CUSTOMER_PORTAL_PASSWORD}
-
-oc secrets link builder dv-pull-secret
-oc secrets link builder dv-pull-secret --for=pull
-```
-
-Replace {CUSTOMER_PORTAL_USERNAME} and {CUSTOMER_PORTAL_PASSWORD} with your own values and execute the commands. Make sure you provide the correct values, other wise next step of installation will fail.
-
-([^ execute](didact://?commandId=vscode.didact.sendNamedTerminalAString&text=camelTerm$$echo%20%22%5Cn%5Cn%22%20%26%26echo%20%22Enter%20username%20for%20%27registry.redhat.io%27%20and%20press%20%5BENTER%5D%3A%20%22%20%26%26%20read%20username%20%26%26%20echo%20%22enter%20password%20for%20%27registry.redhat.io%27%20and%20press%20%5BENTER%5D%3A%20%22%20%26%26%20read%20-s%20password%20%26%26%20oc%20create%20secret%20docker-registry%20dv-pull-secret%20--docker-server%3Dregistry.redhat.io%20--docker-username%3D%24username%20--docker-password%3D%24password%20%26%26%20oc%20secrets%20link%20builder%20dv-pull-secret%20%26%26%20oc%20secrets%20link%20builder%20dv-pull-secret%20--for%3Dpull&completion=DV%20secret%20verification. "Opens a new terminal and sends the command above"){.didact})
-
-Now, go to your OpenShift 4.x WebConsole page, and find the OperatorHub menu item on left hand side menu and find and install "Data Virtualization Operator". This may take couple minutes to install.
+Now, go to your OpenShift 4.x WebConsole page, and find the OperatorHub menu item on left hand side menu and find "Data Virtualization Operator". Follow instructions (eg. setting correct secret) in operator description which are needed before clicking "Install" button. This may take couple minutes to install.
 
 Now lets verify that the dv-operator is installed correctly
 
@@ -125,9 +107,9 @@ oc get pods --selector name=dv-operator
 
 If everything is ok, you should see an Data Virtualization Operator pod below in terminal.
 
-[Check Data Virtualization is installed](didact://?commandId=vscode.didact.requirementCheck&text=dv-requirements-status-2$$oc%20get%20pods%20--selector%20name%3Ddv-operator$$dv-operator-&completion=Checking%20Data%20Virtualization%20is%20available%20on%20this%20system. "Tests to see if `oc get pods --selector name=dv-operator` returns a result"){.didact}
+[Check Data Virtualization is installed](didact://?commandId=vscode.didact.requirementCheck&text=dv-requirements-status$$oc%20get%20pods%20--selector%20name%3Ddv-operator$$dv-operator-&completion=Checking%20Data%20Virtualization%20is%20available%20on%20this%20system. "Tests to see if `oc get pods --selector name=dv-operator` returns a result"){.didact}
 
-_Status: unknown_{#dv-requirements-status-2}
+_Status: unknown_{#dv-requirements-status}
 
 ## 2. Deploy a Virtual Database
 
@@ -149,7 +131,7 @@ oc get vdb dv-dispatch -o yaml
 
 ([^ execute](didact://?commandId=vscode.didact.sendNamedTerminalAString&text=camelTerm$$oc%20get%20vdb%20dv-dispatch%20-o%20yaml&completion=DV%20K%20verification. "Opens a new terminal and sends the command `oc get vdb dv-dispatch -o yaml`"){.didact})
 
-## 2. Running a VDB integration
+## 3. Running a VDB integration
 
 This repository contains a simple Camel K integration that periodically reads and writes from the Virtual Database that is deployed above.
 
