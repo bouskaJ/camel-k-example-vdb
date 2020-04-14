@@ -1,19 +1,39 @@
 # Camel K and Data Virtualization Example
 
-![Camel K CI](https://github.com/openshift-integration/camel-k-example-basic/workflows/Camel%20K%20CI/badge.svg)
-
 This example demonstrates how to get started with Camel K and Data Virtualization, where user installs Camel-K and DV Operator, then using the DV Operator deploys a Virtual Database then connect virtual database using OData connector on Camel-K to read and write data into Virtual Database
 
 ## Before you begin
 
-Make sure you check-out [this repository](https://github.com/openshift-integration/camel-k-example-vdb) from git and open it with [VSCode](https://code.visualstudio.com/).
+Make sure you check-out this repository from git and open it with [VSCode](https://code.visualstudio.com/).
 
 Instructions are based on [VSCode Didact](https://github.com/redhat-developer/vscode-didact), so make sure it's installed
 from the VSCode extensions marketplace.
 
-From the VSCode UI, click on the `README.didact.md` file and select "Didact: Start Didact tutorial from File". A new Didact tab will be opened in VS Code.
+From the VSCode UI, right-click on the `readme.didact.md` file and select "Didact: Start Didact tutorial from File". A new Didact tab will be opened in VS Code.
 
-[Make sure you've checked all the requirements](./requirements.didact.md) before jumping into the tutorial section.
+Make sure you've opened this readme file with Didact before jumping to the next section.
+
+## Preparing the cluster
+
+This example can be run on any OpenShift 4.3+ cluster or a local development instance (such as [CRC](https://github.com/code-ready/crc)). Ensure that you have a cluster available and login to it using the OpenShift `oc` command line tool.
+
+You need to create a new project named `camel-vdb` for running this example. This can be done directly from the OpenShift web console or by executing the command `oc new-project camel-vdb` on a terminal window.
+
+You need to install the Camel K operator in the `camel-vdb` project. To do so, go to the OpenShift 4.x web console, login with a cluster admin account and use the OperatorHub menu item on the left to find and install **"Red Hat Integration - Camel K"**. You will be given the option to install it globally on the cluster or on a specific namespace.
+If using a specific namespace, make sure you select the `camel-vdb` project from the dropdown list.
+This completes the installation of the Camel K operator (it may take a couple of minutes).
+
+When the operator is installed, from the OpenShift Help menu ("?") at the top of the WebConsole, you can access the "Command Line Tools" page, where you can download the **"kamel"** CLI, that is required for running this example. The CLI must be installed in your system path.
+
+Refer to the **"Red Hat Integration - Camel K"** documentation for a more detailed explanation of the installation steps for the operator and the CLI.
+
+### Installing the DV (Teiid) Operator
+
+In order to deploy a Virtual Database you also need the Data Virtualization (Teiid) Operator. This operator needs to be installed from the OperatorHub.
+
+Now, go to your OpenShift 4.x WebConsole page, and find the OperatorHub menu item on left hand side menu and find "Data Virtualization Operator". Follow instructions (eg. setting correct secret) in operator description which are needed before clicking "Install" button. This may take a couple minutes to install.
+
+You can use the following section to check if your environment is configured properly.
 
 ## Requirements
 
@@ -61,55 +81,37 @@ You can install it from the VS Code Extensions marketplace.
 *Status: unknown*{#extension-requirement-status}
 
 
-## 1. Preparing a new OpenShift project
+## 1. Preparing the project
 
-We'll setup a new project called `camel-vdb` where we'll run the integrations.
+We'll connect to the `camel-vdb` project and check the installation status.
 
-To create the project, open a terminal tab and type the following command:
+To change project, open a terminal tab and type the following command:
 
-```
-oc new-project camel-vdb
-```
-
-([^ execute](didact://?commandId=vscode.didact.sendNamedTerminalAString&text=camelTerm$$oc%20new-project%20camel-vdb&completion=New%20project%20creation. "Opens a new terminal and sends the command above"){.didact})
-
-Upon successful creation, you should ensure that the Camel K operator is installed. We'll use the `kamel` CLI to do it:
 
 ```
-kamel install
+oc project camel-vdb
 ```
+([^ execute](didact://?commandId=vscode.didact.sendNamedTerminalAString&text=camelTerm$$oc%20project%20camel-vdb&completion=New%20project%20creation. "Opens a new terminal and sends the command above"){.didact})
 
-([^ execute](didact://?commandId=vscode.didact.sendNamedTerminalAString&text=camelTerm$$kamel%20install&completion=Camel%20K%20operator%20installation. "Opens a new terminal and sends the command above"){.didact})
 
-Camel K should have created an IntegrationPlatform custom resource in your project. To verify it:
+We should now check that the operator is installed. To do so, execute the following command on a terminal:
 
 ```
-oc get integrationplatform
+oc get csv
 ```
+([^ execute](didact://?commandId=vscode.didact.sendNamedTerminalAString&text=camelTerm$$oc%20get%20csv&completion=Checking%20Cluster%20Service%20Versions. "Opens a new terminal and sends the command above"){.didact})
 
-([^ execute](didact://?commandId=vscode.didact.sendNamedTerminalAString&text=camelTerm$$oc%20get%20integrationplatform&completion=Camel%20K%20integration%20platform%20verification. "Opens a new terminal and sends the command above"){.didact})
+When Camel K is installed, you should find an entry related to `red-hat-camel-k-operator` in phase `Succeeded`.
 
-If everything is ok, you should see an IntegrationPlatform named `camel-k` with phase `Ready`.
-
-**DV (Teiid) Operator**
-
-In order to deploy a Virtual Database you also need Data Virtualization (Teiid) Operator. This operator needs to be installed from the OperatorHub.
-
-Now, go to your OpenShift 4.x WebConsole page, and find the OperatorHub menu item on left hand side menu and find "Data Virtualization Operator". Follow instructions (eg. setting correct secret) in operator description which are needed before clicking "Install" button. This may take couple minutes to install.
-
-Now lets verify that the dv-operator is installed correctly
+Now lets verify that also the dv-operator is installed correctly
 
 ```
 oc get pods --selector name=dv-operator
 ```
 
-([^ execute](didact://?commandId=vscode.didact.sendNamedTerminalAString&text=camelTerm$$oc%20get%20pods%20--selector%20name%3Ddv-operator&completion=DV%20K%20verification. "Opens a new terminal and sends the command `oc get pods --selector name=dv-operator`"){.didact})
+([^ execute](didact://?commandId=vscode.didact.sendNamedTerminalAString&text=camelTerm$$oc%20get%20pods%20--selector%20name%3Ddv-operator&completion=DV%20verification. "Opens a new terminal and sends the command `oc get pods --selector name=dv-operator`"){.didact})
 
 If everything is ok, you should see an Data Virtualization Operator pod below in terminal.
-
-[Check Data Virtualization is installed](didact://?commandId=vscode.didact.requirementCheck&text=dv-requirements-status$$oc%20get%20pods%20--selector%20name%3Ddv-operator$$dv-operator-&completion=Checking%20Data%20Virtualization%20is%20available%20on%20this%20system. "Tests to see if `oc get pods --selector name=dv-operator` returns a result"){.didact}
-
-_Status: unknown_{#dv-requirements-status}
 
 ## 2. Deploy a Virtual Database
 
