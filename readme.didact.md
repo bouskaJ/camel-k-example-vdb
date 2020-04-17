@@ -179,3 +179,11 @@ oc get integrations
 ([^ execute](didact://?commandId=vscode.didact.sendNamedTerminalAString&text=camelTerm$$oc%20get%20integrations&completion=Getting%20running%20integrations. "Opens a new terminal and sends the command above"){.didact})
 
 An integration named `vdb` should be present in the list and it should be in status `Running`. There's also a `kamel get` command which is an alternative way to list all running integrations.
+
+## 4. Uninstall
+
+To cleanup everything, execute the following command:
+
+```oc delete project camel-vdb```
+
+([^ execute](didact://?commandId=vscode.didact.sendNamedTerminalAString&text=camelTerm$$oc%20delete%20project%20camel-vdb&completion=Removed%20the%20project%20from%20the%20cluster. "Cleans up the cluster after running the example"){.didact})
