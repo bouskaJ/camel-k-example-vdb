@@ -1,0 +1,10 @@
+config:
+  namespace:
+    temporary: true
+pre:
+  - name: DV operator installation
+    script: scripts/installDV.sh
+  - name: integration
+    run: |
+      kamel install -w -n ${YAKS_NAMESPACE}
+      kamel run ../Vdb.java -n ${YAKS_NAMESPACE}
